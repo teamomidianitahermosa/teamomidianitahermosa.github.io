@@ -1,0 +1,273 @@
+#lienzoMatrix {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+     transition: opacity 1.5s ease-in-out;
+    will-change: opacity;
+}
+
+.contenedor-principal2 {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.contenedor-corazones {
+    position: absolute;
+    top: 55%; /* Los baja exactamente a la mitad de la altura */
+    left: 50%; /* Los centra horizontalmente */
+    transform: translate(-50%, -50%); /* Alineación perfecta de su propio eje */
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espacio de separación entre cada corazón */
+    z-index: 25; /* Los pone por encima del fondo para que no se tapen */
+    width: auto;
+}
+
+/* El rayo de luz brillante que recorrerá del corazón 1 al 5 */
+.linea-destello {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 30px;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.9) 50%, transparent);
+    transform: skewX(-25deg) translateX(-100px);
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Clase que JavaScript activará para lanzar el destello una sola vez */
+.linea-destello.animar {
+    animation: barridoLuz 1.2s ease-in-out forwards;
+}
+
+@keyframes barridoLuz {
+    0% {
+        transform: skewX(-25deg) translateX(-50px);
+    }
+    100% {
+        transform: skewX(-25deg) translateX(calc(100vw + 50px));
+    }
+}
+
+
+.corazon {
+    position: relative;
+    width: 26px;
+    height: 26px;
+    background-color: #ff2a4b;
+    transform: rotate(-45deg) scale(0);
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.8s ease, box-shadow 0.8s ease;
+    opacity: 0;
+}
+
+.corazon::before,
+.corazon::after {
+    content: "";
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    background-color: #ff2a4b;
+    border-radius: 50%;
+    transition: background-color 0.8s ease;
+}
+
+.corazon::before {
+    top: -13px;
+    left: 0;
+}
+
+.corazon::after {
+    top: 0;
+    left: 13px;
+}
+
+.corazon.visible {
+    opacity: 1;
+    transform: rotate(-45deg) scale(1);
+}
+
+
+#corazon3.turquesa {
+    background-color: #00f5d4;
+    box-shadow: 0 0 25px rgba(0, 245, 212, 0.8);
+    cursor: pointer;
+}
+
+#corazon3.turquesa::before,
+#corazon3.turquesa::after {
+    background-color: #00f5d4;
+}
+
+.texto-escena {
+    font-size: 19px;
+    font-weight: 400;
+    color: #ffffff;
+    letter-spacing: 1px;
+    text-align: center;
+    width: 85%;
+    max-width: 320px;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.8), 0 0 5px rgba(0, 0, 0, 0.9);
+    line-height: 1.4;
+    height: 30px;
+    z-index: 10;
+}
+
+.sistema-cosmos {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    z-index: 5;
+}
+
+/* Contenedores invisibles que rotan para hacer orbitar a los astros */
+.orbita {
+    position: absolute;
+    width: 220px; /* Diámetro del giro del Sol */
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+}
+
+.orbita-luna {
+    width: 180px; /* Diámetro del giro de la Luna, un poco más cerrado */
+    height: 180px;
+}
+
+body.fondo-espacio .orbita {
+    opacity: 1;
+}
+
+body.fondo-espacio .orbita-sol {
+    animation: orbitar 15s linear infinite;
+}
+
+body.fondo-espacio .orbita-luna {
+    /* Gira en sentido contrario y más rápido */
+    animation: orbitar 10s linear infinite reverse;
+}
+
+@keyframes orbitar {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.sol {
+    position: absolute;
+    top: -20px;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle, #fff 20%, #ffb703 60%, transparent 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 25px #ffb703;
+}
+
+.luna-astral {
+    position: absolute;
+    top: -11px;
+    width: 22px;
+    height: 22px;
+    background-color: #e0e1dd;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(224, 225, 221, 0.4), inset -4px -4px 0px rgba(0,0,0,0.2);
+}
+
+#mundo {
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #4cc9f0 0%, #2b7fff 45%, #1b4bbd 100%);
+    transition: width 2s cubic-bezier(0.175, 0.885, 0.32, 1.275), height 2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+#mundo.mundo-visible {
+    width: 140px;
+    height: 140px;
+    box-shadow: 0 0 25px rgba(43, 127, 255, 0.5),
+                inset -15px -15px 30px rgba(0, 0, 0, 0.5),
+                inset 8px 8px 20px rgba(255, 255, 255, 0.2);
+    border: 3px solid #000000;
+}
+
+/* Capa de los continentes corregida con fondo transparente nativo */
+.mapa-continentes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 12% 35%, #70e000 22px, transparent 23px),
+        radial-gradient(circle at 35% 62%, #70e000 18px, transparent 19px),
+        radial-gradient(circle at 22% 78%, #70e000 14px, transparent 15px),
+        
+        radial-gradient(circle at 62% 35%, #70e000 22px, transparent 23px),
+        radial-gradient(circle at 85% 62%, #70e000 18px, transparent 19px),
+        radial-gradient(circle at 72% 78%, #70e000 14px, transparent 15px);
+    opacity: 0;
+    will-change: transform;
+}
+
+#mundo.mundo-visible .mapa-continentes {
+    opacity: 1;
+    animation: rotacionTierra 10s linear infinite;
+}
+
+@keyframes rotacionTierra {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Fondo del espacio con nebulosa galáctica integrada */
+body.fondo-espacio {
+    background: radial-gradient(circle at center, #1b263b 0%, #0f172a 50%, #070a12 100%) !important;
+    position: relative;
+}
+
+/* Capa de estrellas espaciales con parpadeo y nebulosa violeta sutil */
+body.fondo-espacio::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 30% 40%, rgba(138, 79, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle, #ffffff 1px, transparent 1.2px),
+        radial-gradient(circle, #ffffff 1px, transparent 1.2px),
+        radial-gradient(circle, #a2d2ff 1.2px, transparent 1.5px);
+    background-position: center, 15vw 20vh, 75vw 15vh, 45vw 60vh, 85vw 70vh, 25vw 80vh, 60vw 35vh;
+    background-size: cover, 180px 180px, 180px 180px, 180px 180px;
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none;
+    /* Activamos el titileo sutil del espacio profundo */
+    animation: parpadeoEspacial 4s infinite alternate ease-in-out;
+    will-change: opacity;
+}
+
+@keyframes parpadeoEspacial {
+    0% { opacity: 0.3; }
+    100% { opacity: 0.6; }
+}
