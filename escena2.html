@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Otras Vidas</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+
+    <canvas id="lienzoMatrix"></canvas>
+
+    <div class="contenedor-principal2">
+        <div class="contenedor-corazones">
+            <div class="linea-destello"></div>
+            <div class="corazon" id="corazon1"></div>
+            <div class="corazon" id="corazon2"></div>
+            <div class="corazon" id="corazon3"></div>
+            <div class="corazon" id="corazon4"></div>
+            <div class="corazon" id="corazon5"></div>
+        </div>
+        
+                <div class="sistema-cosmos">
+            <!-- Contenedores de las órbitas giratorias -->
+            <div class="orbita orbita-sol">
+                <div class="astro sol"></div>
+            </div>
+            <div class="orbita orbita-luna">
+                <div class="astro luna-astral"></div>
+            </div>
+            
+            <!-- El planeta Tierra con su mar base azul -->
+            <div id="mundo" class="mundo-oculto">
+                <!-- La capa física independiente para las islas verdes -->
+                <div class="mapa-continentes"></div>
+            </div>
+        </div>
+
+        <div id="texto-escena2" class="texto-escena"></div>
+    </div>
+
+    <script src="script2.js"></script>
+</body>
+</html>

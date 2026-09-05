@@ -1,0 +1,444 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0b0f19;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+    -webkit-tap-highlight-color: transparent;
+    will-change: opacity;
+}
+
+
+.contenedor-principal {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    opacity: 1;
+    will-change: opacity;
+}
+
+
+@keyframes aparecerNitido {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.escena {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.escena.activa {
+    display: flex;
+}
+
+.cielo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 65%;
+    background: radial-gradient(circle at 30% 40%, rgba(83, 53, 114, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 70% 20%, rgba(34, 69, 119, 0.15) 0%, transparent 50%);
+}
+
+.luna {
+    position: absolute;
+    top: 10%;
+    right: 15%;
+    width: 35px;
+    height: 35px;
+    background-color: #fefae0;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(254, 250, 224, 0.5);
+    animation: respiracionLuna 4s infinite alternate ease-in-out;
+    will-change: box-shadow;
+    
+    /* Forzamos que la luna quede al frente de todo para recibir los clics */
+    z-index: 99; 
+    cursor: pointer;
+}
+
+@keyframes respiracionLuna {
+    0% { box-shadow: 0 0 15px rgba(254, 250, 224, 0.4); }
+    100% { box-shadow: 0 0 30px rgba(254, 250, 224, 0.7); }
+}
+
+.capa-estrellas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 78%;
+    border-radius: 50%;
+    image-rendering: pixelated;
+    -webkit-font-smoothing: antialiased;
+}
+
+.estrellas-blancas {
+    width: 2px;
+    height: 2px;
+    background: transparent;
+    box-shadow: 
+        12vw 15vh #fff, 25vw 35vh #fff, 45vw 15vh #fff, 75vw 28vh #fff, 88vw 45vh #fff,
+        82vw 10vh #fff, 12vw 48vh #fff, 62vw 22vh #fff, 38vw 32vh #fff, 58vw 42vh #fff,
+        25vw 5vh #fff, 5vw 20vh #fff, 52vw 30vh #fff, 68vw 10vh #fff, 72vw 38vh #fff,
+        30vw 52vh #fff, 92vw 25vh #fff, 2vw 45vh #fff, 32vw 15vh #fff, 18vw 35vh #fff,
+        80vw 50vh #fff, 48vw 55vh #fff, 68vw 58vh #fff, 50vw 3vh #fff, 64vw 27vh #fff,
+        18vw 62vh #fff, 52vw 58vh #fff, 88vw 60vh #fff, 10vw 72vh #fff, 48vw 70vh #fff,
+        82vw 67vh #fff, 44vw 63vh #fff, 60vw 61vh #fff, 92vw 73vh #fff;
+    animation: parpadeo 3s infinite alternate ease-in-out;
+}
+
+.estrellas-colores {
+    width: 2.5px;
+    height: 2.5px;
+    background: transparent;
+    box-shadow: 
+        35vw 68vh #a2d2ff, 66vw 56vh #a2d2ff, 5vw 65vh #ffe5ec, 74vw 64vh #ffe5ec,
+        28vw 55vh #a2d2ff, 21vw 59vh #ffe5ec, 15vw 40vh #ffe5ec, 80vw 35vh #a2d2ff;
+    animation: parpadeo 2s infinite alternate ease-in-out-reverse;
+}
+
+@keyframes parpadeo {
+    0% { opacity: 0.2; transform: translateZ(0); }
+    100% { opacity: 1; transform: translateZ(0); }
+}
+
+/* Suelo/Pasto con contraste mejorado para móvil */
+.suelo-pasto {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 22%;
+    background: linear-gradient(to bottom, #161c28 0%, #000000 100%);
+    border-top: 2px solid #20293a;
+    border-radius: 50% 50% 0 0 / 12px 12px 0 0;
+    z-index: 4;
+}
+
+/* Briznas de pasto visibles */
+.brizna {
+    position: absolute;
+    top: -7px;
+    width: 2.5px;
+    height: 9px;
+    background-color: #161c28;
+}
+.brizna:nth-child(1) { left: 30%; transform: rotate(-10deg); }
+.brizna:nth-child(2) { left: 35%; height: 11px; top: -9px; transform: rotate(5deg); }
+.brizna:nth-child(3) { left: 40%; transform: rotate(-5deg); }
+.brizna:nth-child(4) { left: 45%; height: 10px; top: -8px; transform: rotate(12deg); }
+.brizna:nth-child(5) { left: 55%; transform: rotate(-8deg); }
+.brizna:nth-child(6) { left: 60%; height: 12px; top: -10px; transform: rotate(3deg); }
+.brizna:nth-child(7) { left: 65%; transform: rotate(15deg); }
+.brizna:nth-child(8) { left: 70%; height: 9px; top: -7px; transform: rotate(-4deg); }
+.arbol {
+    position: absolute;
+    background-color: #000000;
+    transform-origin: bottom center;
+    animation: vientoSuave 6s infinite ease-in-out alternate;
+    will-change: transform;
+}
+
+.arbol-izq1 {
+    left: -20px;
+    bottom: 18%;
+    width: 70px;
+    height: 160px;
+    z-index: 2;
+    clip-path: polygon(50% 0%, 80% 25%, 65% 25%, 85% 55%, 65% 55%, 90% 85%, 55% 85%, 55% 100%, 45% 100%, 45% 85%, 10% 85%, 35% 55%, 15% 55%, 35% 25%, 20% 25%);
+    animation-delay: 0s;
+}
+.arbol-izq2 {
+    left: 15px;
+    bottom: 19%;
+    width: 50px;
+    height: 125px;
+    z-index: 1;
+    opacity: 0.6;
+    clip-path: polygon(50% 0%, 75% 28%, 60% 28%, 80% 58%, 60% 58%, 85% 88%, 55% 88%, 55% 100%, 45% 100%, 45% 88%, 15% 88%, 40% 58%, 20% 58%, 40% 28%, 25% 28%);
+    animation-delay: 0.4s;
+    animation-duration: 7s;
+}
+.arbol-izq3 {
+    left: 35px;
+    bottom: 19.5%;
+    width: 40px;
+    height: 95px;
+    z-index: 3;
+    clip-path: polygon(50% 0%, 75% 28%, 60% 28%, 80% 58%, 60% 58%, 85% 88%, 55% 88%, 55% 100%, 45% 100%, 45% 88%, 15% 88%, 40% 58%, 20% 58%, 40% 28%, 25% 28%);
+    animation-delay: 0.2s;
+    animation-duration: 5.5s;
+}
+.arbol-izq4 {
+    left: 60px;
+    bottom: 20%;
+    width: 30px;
+    height: 75px;
+    z-index: 1;
+    opacity: 0.5;
+    clip-path: polygon(50% 0%, 75% 28%, 60% 28%, 80% 58%, 60% 58%, 85% 88%, 55% 88%, 55% 100%, 45% 100%, 45% 88%, 15% 88%, 40% 58%, 20% 58%, 40% 28%, 25% 28%);
+    animation-delay: 0.6s;
+    animation-duration: 6.5s;
+}
+
+.arbol-der1 {
+    right: -20px;
+    bottom: 18%;
+    width: 65px;
+    height: 150px;
+    z-index: 2;
+    clip-path: polygon(50% 0%, 80% 25%, 65% 25%, 85% 55%, 65% 55%, 90% 85%, 55% 85%, 55% 100%, 45% 100%, 45% 85%, 10% 85%, 35% 55%, 15% 55%, 35% 25%, 20% 25%);
+    animation-delay: 0.1s;
+}
+.arbol-der2 {
+    right: 20px;
+    bottom: 19%;
+    width: 45px;
+    height: 115px;
+    z-index: 1;
+    opacity: 0.6;
+    clip-path: polygon(50% 0%, 75% 28%, 60% 28%, 80% 58%, 60% 58%, 85% 88%, 55% 88%, 55% 100%, 45% 100%, 45% 88%, 15% 88%, 40% 58%, 20% 58%, 40% 28%, 25% 28%);
+    animation-delay: 0.5s;
+    animation-duration: 6.8s;
+}
+.arbol-der3 {
+    right: 40px;
+    bottom: 19.5%;
+    width: 35px;
+    height: 90px;
+    z-index: 3;
+    clip-path: polygon(50% 0%, 75% 28%, 60% 28%, 80% 58%, 60% 58%, 85% 88%, 55% 88%, 55% 100%, 45% 100%, 45% 88%, 15% 88%, 40% 58%, 20% 58%, 40% 28%, 25% 28%);
+    animation-delay: 0.3s;
+    animation-duration: 5.2s;
+}
+.arbol-der4 {
+    right: 65px;
+    bottom: 20%;
+    width: 28px;
+    height: 70px;
+    z-index: 1;
+    opacity: 0.5;
+    clip-path: polygon(50% 0%, 75% 28%, 60% 28%, 80% 58%, 60% 58%, 85% 88%, 55% 88%, 55% 100%, 45% 100%, 45% 88%, 15% 88%, 40% 58%, 20% 58%, 40% 28%, 25% 28%);
+    animation-delay: 0.7s;
+    animation-duration: 6.2s;
+}
+
+.arbol-izq-medio {
+    left: 90px;
+    bottom: 20%;
+    width: 25px;
+    height: 65px;
+    z-index: 2;
+    opacity: 0.65;
+    clip-path: polygon(50% 0%, 75% 28%, 60% 28%, 80% 58%, 60% 58%, 85% 88%, 55% 88%, 55% 100%, 45% 100%, 45% 88%, 15% 88%, 40% 58%, 20% 58%, 40% 28%, 25% 28%);
+    animation-delay: 0.3s;
+    animation-duration: 5.8s;
+}
+
+.arbol-der-medio {
+    right: 95px;
+    bottom: 20%;
+    width: 24px;
+    height: 60px;
+    z-index: 2;
+    opacity: 0.6;
+    clip-path: polygon(50% 0%, 75% 28%, 60% 28%, 80% 58%, 60% 58%, 85% 88%, 55% 88%, 55% 100%, 45% 100%, 45% 88%, 15% 88%, 40% 58%, 20% 58%, 40% 28%, 25% 28%);
+    animation-delay: 0.1s;
+    animation-duration: 6.4s;
+}
+
+.arbol-izq-frente {
+    left: -15px;
+    bottom: -5px;
+    width: 55px;
+    height: 125px;
+    z-index: 5;
+    clip-path: polygon(50% 0%, 80% 25%, 65% 25%, 85% 55%, 65% 55%, 90% 85%, 55% 85%, 55% 100%, 45% 100%, 45% 85%, 10% 85%, 35% 55%, 15% 55%, 35% 25%, 20% 25%);
+    animation-delay: 0.5s;
+    animation-duration: 5s;
+}
+
+.arbol-der-frente {
+    right: -15px;
+    bottom: -10px;
+    width: 50px;
+    height: 115px;
+    z-index: 5;
+    clip-path: polygon(50% 0%, 75% 28%, 60% 28%, 80% 58%, 60% 58%, 85% 88%, 55% 88%, 55% 100%, 45% 100%, 45% 88%, 15% 88%, 40% 58%, 20% 58%, 40% 28%, 25% 28%);
+    animation-delay: 0.2s;
+    animation-duration: 5.4s;
+}
+
+.arbol-izq-esquina {
+    left: -20px;
+    bottom: 0;
+    width: 75px;
+    height: 190px;
+    z-index: 5;
+    clip-path: polygon(50% 0%, 80% 25%, 65% 25%, 85% 55%, 65% 55%, 90% 85%, 55% 85%, 55% 100%, 45% 100%, 45% 85%, 10% 85%, 35% 55%, 15% 55%, 35% 25%, 20% 25%);
+    animation-delay: 0.3s;
+    animation-duration: 5.8s;
+}
+
+.arbol-izq-esquina2 {
+    left: 20px;
+    bottom: 0;
+    width: 60px;
+    height: 150px;
+    z-index: 5;
+    clip-path: polygon(50% 0%, 80% 25%, 65% 25%, 85% 55%, 65% 55%, 90% 85%, 55% 85%, 55% 100%, 45% 100%, 45% 85%, 10% 85%, 35% 55%, 15% 55%, 35% 25%, 20% 25%);
+    animation-delay: 0.6s;
+    animation-duration: 6.2s;
+}
+
+.arbol-der-esquina {
+    right: -20px;
+    bottom: 0;
+    width: 70px;
+    height: 180px;
+    z-index: 5;
+    clip-path: polygon(50% 0%, 75% 28%, 60% 28%, 80% 58%, 60% 58%, 85% 88%, 55% 88%, 55% 100%, 45% 100%, 45% 88%, 15% 88%, 40% 58%, 20% 58%, 40% 28%, 25% 28%);
+    animation-delay: 0.1s;
+    animation-duration: 5.5s;
+}
+
+.arbol-der-esquina2 {
+    right: 25px;
+    bottom: 0;
+    width: 55px;
+    height: 140px;
+    z-index: 5;
+    clip-path: polygon(50% 0%, 75% 28%, 60% 28%, 80% 58%, 60% 58%, 85% 88%, 55% 88%, 55% 100%, 45% 100%, 45% 88%, 15% 88%, 40% 58%, 20% 58%, 40% 28%, 25% 28%);
+    animation-delay: 0.4s;
+    animation-duration: 6s;
+}
+
+
+@keyframes vientoSuave {
+    0% { transform: rotate(-3.5deg); }
+    100% { transform: rotate(4deg); }
+}
+/* Montañas en el horizonte */
+.montana {
+    position: absolute;
+    bottom: 21%;
+    background-color: #080b12;
+    z-index: 1;
+}
+
+.montana-izq {
+    left: -20%;
+    width: 85%;
+    height: 145px;
+    clip-path: polygon(0% 100%, 25% 55%, 50% 68%, 75% 45%, 100% 100%);
+    opacity: 0.9;
+}
+
+.montana-der {
+    right: -10%;
+    width: 75%;
+    height: 135px;
+    clip-path: polygon(0% 100%, 25% 45%, 50% 35%, 75% 60%, 100% 100%);
+    opacity: 0.8;
+}
+
+/* Estrellas Fugaces Multiplicadas y Optimizadas */
+.estrella-fugaz {
+    position: absolute;
+    width: 70px;
+    height: 1.5px;
+    background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));
+    transform: rotate(-35deg);
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+.estrella-fugaz:nth-child(1) { top: 5%; left: 60%; animation: fuga1 11s infinite ease-in-out; animation-delay: 1s; }
+.estrella-fugaz:nth-child(2) { top: 15%; left: 30%; animation: fuga1 13s infinite ease-in-out; animation-delay: 4s; width: 90px; }
+.estrella-fugaz:nth-child(3) { top: 25%; left: 80%; animation: fuga1 10s infinite ease-in-out; animation-delay: 2.5s; width: 50px; }
+.estrella-fugaz:nth-child(4) { top: 8%; left: 45%; animation: fuga1 12s infinite ease-in-out; animation-delay: 5.5s; }
+
+.estrella-fugaz:nth-child(5) { top: 35%; left: 60%; animation: fuga1 7s infinite ease-in-out; animation-delay: 2s; }
+.estrella-fugaz:nth-child(6) { top: 45%; left: 30%; animation: fuga1 9s infinite ease-in-out; animation-delay: 4s; width: 90px; }
+.estrella-fugaz:nth-child(7) { top: 55%; left: 80%; animation: fuga1 6s infinite ease-in-out; animation-delay: 2.5s; width: 50px; }
+.estrella-fugaz:nth-child(8) { top: 16%; left: 45%; animation: fuga1 8s infinite ease-in-out; animation-delay: 5.5s; }
+
+@keyframes fuga1 {
+    0% { transform: translate(0, 0) rotate(-35deg); opacity: 0; }
+    4% { opacity: 1; }
+    12% { transform: translate(-180px, 120px) rotate(-35deg); opacity: 0; }
+    100% { transform: translate(-180px, 120px) rotate(-35deg); opacity: 0; }
+}
+
+/* Pareja Parada de Cuerpo Completo Corregida */
+.pareja-parada {
+    position: absolute;
+    bottom: 21%;
+    width: 70px;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 3;
+}
+
+.silueta-parada {
+    width: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.cabeza-parada {
+    width: 14px;
+    height: 14px;
+    background-color: #000000;
+    border-radius: 50%;
+    margin-bottom: 2px;
+}
+
+.cuerpo-parada {
+    width: 24px;
+    height: 84px;
+    background-color: #000000;
+    clip-path: polygon(25% 0%, 75% 0%, 100% 25%, 80% 50%, 75% 100%, 25% 100%, 20% 50%, 0% 25%);
+}
+
+.persona-der {
+    transform: scaleX(-1);
+}
+
+.luna {
+    position: absolute;
+    top: 10%;
+    right: 15%;
+    width: 35px;
+    height: 35px;
+    background-color: #fefae0;
+    border-radius: 50%;
+    box-shadow: 0 0 20px rgba(254, 250, 224, 0.5);
+    animation: respiracionLuna 4s infinite alternate ease-in-out;
+    will-change: box-shadow;
+    
+    /* Forzamos que la luna quede al frente de todo para recibir los clics */
+    z-index: 99; 
+    cursor: pointer;
+}
+

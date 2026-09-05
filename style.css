@@ -1,0 +1,126 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: #000000; 
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+#acuario {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+#lienzo-dibujo {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#gusano1, #gusano2, #gusano3, #gusano4, #gusano5, #gusano6, #gusano7, #gusano8, 
+#gusano9, #gusano10, #gusano11, #gusano12, #gusano13, #gusano14, #gusano15, #gusano16, 
+#gusano17, #gusano18, #gusano19, #gusano20, #gusano21, #gusano22, #gusano23, #gusano24, 
+#gusano25, #gusano26, #gusano27, #gusano28, #gusano29, #gusano30, #gusano31, #gusano32 {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+#gusano1, #gusano5, #gusano9, #gusano13, #gusano17, #gusano21, #gusano25, #gusano29 { 
+    stroke: #ff2d75; 
+    filter: drop-shadow(0 0 8px #ff2d75); 
+}
+#gusano2, #gusano6, #gusano10, #gusano14, #gusano18, #gusano22, #gusano26, #gusano30 { 
+    stroke: #ff007f; 
+    filter: drop-shadow(0 0 8px #ff007f); 
+}
+#gusano3, #gusano7, #gusano11, #gusano15, #gusano19, #gusano23, #gusano27, #gusano31 { 
+    stroke: #c77dff; 
+    filter: drop-shadow(0 0 8px #c77dff); 
+}
+#gusano4, #gusano8, #gusano12, #gusano16, #gusano20, #gusano24, #gusano28, #gusano32 { 
+    stroke: #70d6ff; 
+    filter: drop-shadow(0 0 8px #70d6ff); 
+}
+
+#dedicatoria {
+    position: absolute;
+    bottom: 8%; 
+    left: 50%;
+    transform: translateX(-50%); 
+    
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 24px;
+    font-weight: 300; 
+    letter-spacing: 4px; 
+    text-transform: uppercase; 
+    
+    color: #70d6ff; 
+    text-shadow: 0 0 10px #70d6ff, 
+                 0 0 20px #70d6ff; 
+                 
+    opacity: 0;
+}
+
+#dedicatoria.mostrar {
+    animation: aparecerTexto 2s ease-out forwards;
+}
+#dedicatoria {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%); 
+    z-index: 10; 
+    
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 64px;
+    font-weight: 500; 
+    letter-spacing: 8px; 
+    text-transform: uppercase; 
+    
+    color: #70d6ff; 
+    text-shadow: 0 0 14px #70d6ff, 
+                 0 0 30px #70d6ff; 
+                 
+    opacity: 0; 
+}
+
+#dedicatoria.mostrar {
+        animation: aparecerTexto 2s ease-out forwards;
+    }
+
+@keyframes aparecerTexto {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 15px); 
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+
+.desvanecer-escena {
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    pointer-events: none;
+}
+
+#detector-corazon {
+    cursor: default;
+}
+
+/* Ajuste de tamaño de texto específico para pantallas de celulares */
+@media (max-width: 767px) {
+    #dedicatoria {
+        font-size: 24px; /* Lo reduce de 45px a 24px en celulares para que quepa bien */
+        bottom: 32%;    /* Lo sube un poquito más para que no se pegue al borde físico del teléfono */
+        width: 100%;
+        text-align: center;
+    }
+}
+
