@@ -124,7 +124,7 @@ function transformarTurquesa() {
             corazon3.addEventListener("click", iniciarFusionPaso5);
             corazon3.addEventListener("touchstart", iniciarFusionPaso5);
         }
-    }, 400);
+    }, 1200);
 }
 
 function iniciarFusionPaso5(e) {
