@@ -281,3 +281,90 @@ body.fondo-espacio::before {
     0% { opacity: 0.3; }
     100% { opacity: 0.6; }
 }
+
+/* Asegura que el contenedor de tu escena 4 no deje salir nada de la pantalla */
+#contenedor-escena-4 {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* Crucial para evitar scroll en el celular */
+}
+
+/* Contenedor del flash que cubrirá la pantalla del teléfono */
+.explosion-flash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    opacity: 0;
+    z-index: 9999;
+    pointer-events: none;
+    transition: opacity 0.25s ease-out; /* Un destello un poco más rápido */
+}
+
+.flash-active {
+    opacity: 1;
+}
+
+
+/* Asegura que no aparezca scroll en el teléfono durante la animación */
+body {
+    overflow: hidden;
+}
+
+/* Contenedor del flash que cubrirá la pantalla del teléfono */
+.explosion-flash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+    opacity: 0;
+    z-index: 9999;
+    pointer-events: none;
+    transition: opacity 0.25s ease-out;
+}
+
+.flash-active {
+    opacity: 1;
+}
+
+/* Estilos comunes de posicionamiento para los vectores interactivos */
+.vector-space-object {
+    position: fixed;
+    z-index: 1000;
+    transition: all 2.3s cubic-bezier(0.1, 0.85, 0.25, 1);
+    filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.6));
+}
+
+/* --- DETALLES DEL COHETE --- */
+.rocket-silhouette {
+    width: 60px;
+    height: 60px;
+    bottom: -80px;
+    left: -80px;
+    transform: rotate(45deg); /* Apunta hacia el centro de la pantalla */
+}
+
+/* --- DETALLES DEL METEORITO --- */
+.meteor-silhouette {
+    width: 70px;
+    height: 70px;
+    top: -80px;
+    right: -80px;
+    /* Ya no le aplicamos rotación general aquí para no invertir sus ejes */
+}
+
+/* Animación de rotación continua solo para la roca interna del meteorito */
+@keyframes giroMeteorito {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.roca-giratoria {
+    transform-origin: 12px 20px; /* Centro exacto de la roca rediseñada */
+    animation: giroMeteorito 1.6s linear infinite;
+}

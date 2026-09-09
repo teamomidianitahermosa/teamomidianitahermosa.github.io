@@ -72,7 +72,7 @@ requestAnimationFrame(bucleMatrix);
 
 const textoEscena2 = document.getElementById("texto-escena2");
 const corazon3 = document.getElementById("corazon3");
-const frase2 = "Y si este corazon late en mas vidas despues de esta";
+const frase2 = "Y si este corazon sigue latiendo en mas vidas despues de esta";
 const fraseFinal = "en mundos tan llenos de sorpresas";
 
 function escribirTextoAltaFluidez(elemento, texto, tiempoPorLetra, callback) {
@@ -163,22 +163,142 @@ function iniciarFusionPaso5(e) {
     }, 600);
 }
 
+
 function pasarAPaisajeFinal(e) {
     e.preventDefault();
-    
-    const principal = document.querySelector(".contenedor-principal2");
-    if (principal) {
-        principal.style.transition = "opacity 2s ease-in-out";
-        principal.style.opacity = "0";
-    }
-    
-    document.body.style.transition = "background-color 2s ease-in-out";
-    document.body.style.background = "#ffffff";
 
+    // 1. Buscamos el elemento del mundo
+    const mundo = document.getElementById("mundo");
+    if (!mundo) return;
+
+    // Bloqueamos los toques repetidos para resguardar la animación
+    mundo.style.pointerEvents = "none";
+
+    // 2. Creamos el Cohete Ultra-Detallado usando SVG
+    const cohete = document.createElement('div');
+    cohete.className = 'vector-space-object rocket-silhouette';
+    cohete.innerHTML = `
+        <svg viewBox="0 0 32 32" width="100%" height="100%">
+            <defs>
+                <linearGradient id="fuegoGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="#ffcc00" />
+                    <stop offset="50%" stop-color="#ff4500" />
+                    <stop offset="100%" stop-color="#ff0000" stop-opacity="0" />
+                </linearGradient>
+            </defs>
+            <path d="M16 26 C12 32, 20 32, 16 26" fill="url(#fuegoGrad)" />
+            <path d="M16 26 C14 30, 18 30, 16 26" fill="#ffcc00" opacity="0.8" />
+            
+            <path d="M8 22 L3 25 C2 21, 5 17, 7 16 Z" fill="#007799" />
+            <path d="M8 22 L5 24 C5 20, 7 18, 8 17 Z" fill="#00a8cc" />
+            
+            <path d="M24 22 L29 25 C30 21, 27 17, 25 16 Z" fill="#007799" />
+            <path d="M24 22 L27 24 C27 20, 25 18, 24 17 Z" fill="#00a8cc" />
+            
+            <rect x="13" y="21" width="6" height="2" rx="0.5" fill="#ffffff" />
+            
+            <path d="M16 3 C21 9, 24 15, 24 22 L8 22 C8 15, 11 9, 16 3 Z" fill="#00f0ff" />
+            
+            <path d="M9 16 Q16 18 23 16" stroke="#00a8cc" stroke-width="0.5" fill="none" />
+            <path d="M11 11 Q16 13 21 11" stroke="#00a8cc" stroke-width="0.5" fill="none" />
+            <circle cx="16" cy="18" r="0.5" fill="#ffffff" />
+            <circle cx="11" cy="18" r="0.5" fill="#ffffff" />
+            <circle cx="21" cy="18" r="0.5" fill="#ffffff" />
+            
+            <circle cx="16" cy="11" r="3.5" fill="#007799" />
+            <circle cx="16" cy="11" r="2.5" fill="#ffffff" />
+            
+            <path d="M16 3 C18 6, 19.5 8, 19.5 10 L12.5 10 C12.5 8, 14 6, 16 3 Z" fill="#ffffff" />
+        </svg>
+    `;
+
+    // 3. Creamos el Meteorito con LLAMA FLUIDA Y ORGÁNICA
+    const meteorito = document.createElement('div');
+    meteorito.className = 'vector-space-object meteor-silhouette';
+    meteorito.innerHTML = `
+        <svg viewBox="0 0 32 32" width="100%" height="100%">
+            <defs>
+                <linearGradient id="fuegoMeteorito" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#00f0ff" stop-opacity="0.9" />
+                    <stop offset="30%" stop-color="#00a8cc" stop-opacity="0.6" />
+                    <stop offset="100%" stop-color="#005f73" stop-opacity="0" />
+                </linearGradient>
+            </defs>
+            <g>
+                <path d="M7 16 C 9 12, 18 6, 29 3 C 25 11, 20 20, 16 25 C 15 22, 11 19, 7 16 Z" fill="url(#fuegoMeteorito)" />
+                <path d="M9 16 C 11 14, 15 10, 22 7 C 19 12, 16 16, 14 20 C 13 19, 11 17, 9 16 Z" fill="#ffffff" opacity="0.4" />
+                <path d="M6 13 Q 14 5 22 2" stroke="#00f0ff" stroke-width="0.8" fill="none" opacity="0.5" stroke-dasharray="4 2" />
+                <path d="M13 23 Q 22 15 26 8" stroke="#00f0ff" stroke-width="0.8" fill="none" opacity="0.5" stroke-dasharray="3 3" />
+            </g>
+            <g class="roca-giratoria">
+                <path d="M12 14 C16 13, 19 16, 18 20 C17 24, 14 26, 11 25 C8 24, 6 21, 7 18 C8 15, 9 14, 12 14 Z" fill="#00a8cc" />
+                <circle cx="11" cy="18" r="1.5" fill="#005f73" />
+                <circle cx="14" cy="21" r="1.8" fill="#005f73" />
+                <circle cx="10" cy="22" r="0.8" fill="#005f73" />
+                <circle cx="15" cy="17" r="1" fill="#005f73" />
+            </g>
+        </svg>
+    `;
+
+    // Creamos la pantalla de destello
+    const flash = document.createElement('div');
+    flash.className = 'explosion-flash';
+
+    // Inyectamos los elementos al documento
+    document.body.appendChild(cohete);
+    document.body.appendChild(meteorito);
+    document.body.appendChild(flash);
+
+    // 4. Activamos la trayectoria hacia el centro del mundo
     setTimeout(() => {
-        window.location.href = "escena3.html";
-    }, 2000);
+        const rectMundo = mundo.getBoundingClientRect();
+        const centroX = rectMundo.left + (rectMundo.width / 2);
+        const centroY = rectMundo.top + (rectMundo.height / 2);
+
+        // Envío del cohete al centro exacto
+        cohete.style.left = `${centroX - 30}px`;
+        cohete.style.top = `${centroY - 30}px`;
+        cohete.style.transform = `rotate(45deg) scale(0.65)`;
+
+        // Envío del meteorito al centro exacto
+        meteorito.style.left = `${centroX - 35}px`; 
+        meteorito.style.top = `${centroY - 35}px`;
+        meteorito.style.transform = `scale(0.65)`;
+    }, 50);
+
+    // 5. Impacto y detonación del flash (Sincronizado a los 2.3 segundos de viaje + 50ms de delay inicial)
+    setTimeout(() => {
+        flash.classList.add('flash-active');
+
+        cohete.remove();
+        meteorito.remove();
+
+        // Transición oculta detrás de la cortina blanca
+        setTimeout(() => {
+            const principal = document.querySelector(".contenedor-principal2");
+            if (principal) {
+                principal.style.transition = "opacity 0.4s ease-out";
+                principal.style.opacity = "0";
+            }
+            
+            document.body.style.transition = "background-color 0.4s ease-out";
+            document.body.style.background = "#ffffff";
+
+            // Saltamos a la siguiente página (escena3.html)
+            setTimeout(() => {
+                window.location.href = "escena3.html";
+            }, 500);
+
+        }, 250);
+
+    }, 2350); 
 }
+
+
+
+
+
+
 
 window.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
