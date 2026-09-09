@@ -1,3 +1,35 @@
+// Se ejecuta automáticamente apenas carga la escena en el celular
+window.addEventListener("DOMContentLoaded", () => {
+    const audio = document.getElementById("musica-fondo");
+    
+    if (audio) {
+        // 1. Recuperamos el segundo exacto donde se quedó en la página anterior
+        const tiempoGuardado = localStorage.getItem("tiempoMusica");
+        
+        if (tiempoGuardado) {
+            audio.currentTime = parseFloat(tiempoGuardado);
+        }
+
+        // 2. Intentamos reproducir el audio de inmediato
+        audio.play().catch(error => {
+            console.log("Esperando toque para sincronizar audio");
+            
+            // Si el móvil bloquea el autoplay, sonará al primer toque en la pantalla
+            document.body.addEventListener('touchstart', () => {
+                audio.play();
+            }, { once: true });
+        });
+
+        // 3. EVENTO CLAVE: Cada vez que ella toque la pantalla para avanzar en esta escena,
+        // guardamos el tiempo actual antes de que la página cambie
+        // (Asegúrate de que tus funciones de cambio de página se ejecuten después de esto)
+        window.addEventListener("beforeunload", () => {
+            localStorage.setItem("tiempoMusica", audio.currentTime);
+        });
+    }
+});
+
+
 // Detecta de forma moderna si el usuario recargó la página y lo regresa al corazón
 const transicionTipo = window.performance.getEntriesByType('navigation')[0]?.type;
 if (transicionTipo === 'reload') {

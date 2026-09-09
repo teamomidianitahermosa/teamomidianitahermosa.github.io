@@ -253,22 +253,34 @@ function dispararTransicion() {
 
 // Escuchador para Computadora (Mouse)
 detectorCorazon.addEventListener('click', () => {
+        const audio = document.getElementById("musica-fondo");
+    if (audio) {
+           localStorage.setItem("tiempoMusica", audio.currentTime);
+
+        audio.play().catch(error => {
+            console.log("El navegador bloqueó el audio temporalmente:", error);
+        });
+    }
     dispararTransicion();
+
+  
 });
 
-// Escuchador para Teléfono (Pantalla Táctil)
-detectorCorazon.addEventListener('touchend', (e) => {
-    if (detectorCorazon.style.pointerEvents === "auto") {
-        e.preventDefault(); 
-        dispararTransicion();
-    }
-});
 
 // Soporta toques en pantallas táctiles de celulares
 detectorCorazon.addEventListener('touchstart', (e) => {
     e.preventDefault(); // Evita comportamientos extraños del navegador móvil
-    detectorCorazon.click();
+    detectorCorazon.click(); // Al hacer clic aquí, se ejecuta TODO el bloque de arriba (incluida la música)
 });
+
+// Captura el segundo exacto de la música justo en el milisegundo antes de cambiar de página
+window.addEventListener("beforeunload", () => {
+    const audio = document.getElementById("musica-fondo");
+    if (audio) {
+        localStorage.setItem("tiempoMusica", audio.currentTime);
+    }
+});
+
 
 
 // Función única que controla el cambio de pantalla
